@@ -1,0 +1,73 @@
+body {
+  box-sizing: border-box;
+  font-size: 13px;
+}
+
+li {
+  list-style: none;
+}
+
+.container {
+  border: 1px solid black;
+  height: 210px;
+  width: 600px;
+  color: darkblue;
+}
+
+.products {
+  border-bottom: 1px solid black;
+}
+
+span.title {
+  font-size: 15px;
+  margin-left: 15px;
+  font-weight: bolder;
+  font-style: italic;
+}
+.category {
+  margin-left: -20px;
+  display: inline-flex;
+  justify-content: left;
+}
+.active {
+  background-color: orange;
+  border-radius: 10px;
+  padding: 2px;
+  color: white;
+}
+.category li {
+  display: inline;
+  margin-right: 10px;
+}
+
+.conditions {
+  display: inline-block;
+  font-size: 14px;
+  font-weight: bolder;
+  margin: 20px 5px;
+}
+.filter-list {
+  margin-left: 10px;
+}
+.notify {
+  font-size: 12px;
+  color: darkolivegreen;
+  font-weight: lighter;
+}
+.filter-list ul {
+  margin-right: -30px;
+  display: inline-flex;
+  justify-content: left;
+}
+
+.filter-list li {
+  margin-right: 10px;
+  background-color: orange;
+  padding: 3px;
+  border-radius: 10px;
+  font-size: 12px;
+  color: white;
+}
+.fas.fa-times-circle {
+  cursor: pointer;
+}

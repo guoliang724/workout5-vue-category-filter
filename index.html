@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>demo1</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.11/vue.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.15.0/css/all.css"
+      integrity="sha384-OLYO0LymqQ+uHXELyx93kblK5YIS3B2ZfLGBmsJaUyor7CpMTBsahDHByqSuWW+q"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="./index.css" />
+  </head>
+  <body>
+    <div class="app">
+      <div class="container">
+        <div class="products" v-for="(goods,listIndex) in goodsList">
+          <span class="title">{{ goods.title }}</span>
+          <ul class="category">
+            <li
+              class="product"
+              :class="{active:goods.index == goodIndex}"
+              @click="ItemClick(listIndex,good,$event)"
+              v-for="(good,goodIndex) in goods.typeList"
+            >
+              {{ good }}
+            </li>
+          </ul>
+        </div>
+        <div class="filter-list">
+          <span class="conditions">selected conditions:</span>
+          <span class="notify" v-show="isNull">no selection by now</span>
+          <ul>
+            <li class="filtered" v-for="(item,itemKey) in filterList">
+              {{ item }}
+              <i @click="DeleteItem(itemKey)" class="fas fa-times-circle"></i>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <script>
+      var vm = new Vue({
+        el: ".app",
+        data: {
+          filterList: {},
+          isNull: true,
+          goodsList: [
+            {
+              title: "Clothing",
+              typeList: [
+                "All",
+                "Shoes",
+                "Handbags & Wallets",
+                "Girls",
+                "Boys",
+                "Baby",
+                "Sunglasses",
+                "Jewelry",
+              ],
+              id: 1,
+            },
+            {
+              title: "Books",
+              typeList: [
+                "All",
+                "Books in French",
+                "Textbooks",
+                "children's Books",
+                "Kindle Books",
+                "Prime Reading",
+              ],
+              id: 2,
+            },
+            {
+              title: "Handmade",
+              typeList: [
+                "All",
+                "Jewellery",
+                "Artwork",
+                "Bedding",
+                "Toy & Games",
+              ],
+              id: 3,
+            },
+          ],
+        },
+        methods: {
+          ItemClick(currentIndex, type, e) {
+            var index = this.goodsList[currentIndex].typeList.indexOf(type);
+            this.goodsList[currentIndex].index = index;
+            if (type == "All") {
+              vm.$delete(this.filterList, currentIndex);
+              this.IsNull();
+              return;
+            }
+            this.isNull = false;
+            vm.$set(this.filterList, currentIndex, type);
+          },
+          DeleteItem(itemKey) {
+            vm.$delete(this.filterList, itemKey);
+            this.goodsList[itemKey].index = 0;
+            this.IsNull();
+          },
+          IsNull() {
+            var filterListstr = JSON.stringify(this.filterList);
+            if (filterListstr == "{}") this.isNull = true;
+          },
+        },
+      });
+      vm.goodsList.forEach((item) => vm.$set(item, "index", 0));
+    </script>
+  </body>
+</html>
